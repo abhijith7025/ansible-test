@@ -6,7 +6,7 @@
     - ./vars/httpd.var
   tasks:
     - name: Installing httpd webserver
-      amazon-linux-extras:
+      yum:
         name: httpd
         state: present
     - name: Configuring apache virtualhost file
