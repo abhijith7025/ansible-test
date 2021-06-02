@@ -1,0 +1,37 @@
+---
+- name: Installing and configure and index page to listen to example.com
+  hosts: hosts
+  become: true
+  vars_file:
+    - ./vars/httpd.var
+  tasks:
+    - name: Installing httpd webserver
+      amazon-linux-extras:
+        name: httpd
+        state: present
+    - name: Configuring apache virtualhost file
+      template:
+        src: ./template/virtualhost.conf
+        dest: /etc/httpd/conf.d/httpd.conf
+    - name: Configuring virtualhost file
+      template:
+        src: ./templates/virtualhost.conf.tmpl
+        dest: /etc/httpd/conf.d/{{ domain }}.conf
+    - name: Configuring Virtualhost file
+      template:
+        src: ./templates/virtualhost.conf.tmpl
+        dest: /etc/httpd/conf.d/{{ domain }}.conf
+    - name: Restarting Webserver
+      service:
+        name: httpd
+        state: restarted
+        enabled: true
+    - name: copying Contents to Documentroot
+      copy:
+        src: /index.php
+        dest: /var/www/html/{{ domain }}
+        owner: apache
+        group: apache
+
+
+
