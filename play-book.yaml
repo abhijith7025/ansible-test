@@ -1,6 +1,6 @@
 ---
 - name: Installing and configure and index page to listen to example.com
-  hosts: all
+  hosts: amazon
   become: true
   vars_files:
     - ./vars/httpd.var
