@@ -2,7 +2,7 @@
 - name: Installing and configure and index page to listen to example.com
   hosts: all
   become: true
-  vars_file:
+  vars_files:
     - ./vars/httpd.var
   tasks:
     - name: Installing httpd webserver
